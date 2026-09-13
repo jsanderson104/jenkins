@@ -5,6 +5,12 @@ Pull the Jenkins container image
 podman pull docker.io/jenkins/jenkins
 ```
 
+Make the Jenkins_home path writeable from within the contanier.. this is the lazy insecure way. Don't judge me - it's a home lab. 
+This location can be used later to make backups of the app and have it stored on the host/vm.
+```
+mkdir -p /mnt/jenkins && chmod 777 /mnt/jenkins
+```
+
 Run the container with persistent storage
 ```
 podman run -dt --name jenkins --hostname jenkins.lab.sanderson.com -v /mnt/jenkins:/jenkins_home -p 9090:8080 -p 9443:8443 -e JENKINS_HOME=/jenkins_home  docker.io/jenkins/jenkins
