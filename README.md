@@ -34,3 +34,6 @@ In my home lab, i use my ansible vm to run this container so http://ansi.lab.san
 7. Create first admin user
 
 *More complex setup would be to use nginx and the proxy and have it answer on a unique IP via SSL then proxy to the localhost backend port 9090
+
+
+<h2>How to Run Jenkins in Kubernetes can be found in my Kubernetes repo instead.</h2>
