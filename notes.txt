@@ -1,1 +1,2 @@
 # Click on the Gear icon in the top right after you get logged in as an admin. Then goto "PLugins" - you'll want to add the following:   Google Compute Engine , Kubernetes, Github
+# The link I used to figure out Jenkins to FreeIPA ldap logins.. https://computingpost.medium.com/how-to-configure-jenkins-freeipa-ldap-authentication-94d6dfc32dbc
