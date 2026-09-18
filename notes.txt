@@ -1,0 +1,1 @@
+# Click on the Gear icon in the top right after you get logged in as an admin. Then goto "PLugins" - you'll want to add the following:   Google Compute Engine , Kubernetes, Github
