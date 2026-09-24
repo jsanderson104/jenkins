@@ -36,10 +36,8 @@ In my home lab, i use my ansible vm to run this container so http://ansi.lab.san
 *More complex setup would be to use nginx and the proxy and have it answer on a unique IP via SSL then proxy to the localhost backend port 9090
 
 
-<h2>How to Run Jenkins in Kubernetes can be found in my Kubernetes repo instead.</h2>
-
-
-<h3>How to have an external Jenkins instance use K8S as a "cloud" platform for building. It should dynamically spin-up pods/images when GitHub committs occur.</h3><br>
+<h2>How to have an external Jenkins instance use K8S as a "cloud" platform for building.</h2><br>
+-  It should dynamically spin-up pods/images when GitHub committs occur.
 First and foremost, you'll need to install the Kubernetes plugin for Jenkins.<br>
 There is a file in this repo that will need to be applied to the K8S cluster to create the namespace, serviceAccount, and RoleBinding.<br>
 Then we will need to get the K8S token for logging in as the newly created service account.<br>
@@ -50,7 +48,8 @@ kubectl create token -n jenkins-builders jenkins-svc-account
 
 Save that token output for use in Jenkins. <br>
 You will need to create a Jenkins Credential to make-use-of the new K8S token.<br>
-Very Important that while setting up the credential, you'll need to use the "secret text" option and paste the token in that box.<br>
+
+Important that while setting up the credential, you'll need to use the "secret text" option and paste the token in that box.<br>
 Now that you've got the Kubernetes "slice of the pie" allocated for Jenkins, we next need to configure Jenkins.<br>
 
 <b>Inside Jenkins admin user, click on the Gear in the top-right and then choose "Clouds", then Create or Add.</b> <br>
