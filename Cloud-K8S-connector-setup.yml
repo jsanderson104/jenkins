@@ -1,0 +1,31 @@
+# This file is a Kubernetes Manifest file that will create the objects and permissions in a Kubernetes cluster that allows you to setup a "cloud" connection in Jenkins Settings.
+# After applying this manifest to your cluster, you'll need to run "kubectl create token -n jenkins-builders jenkins-svc-account" then save that token for later.
+# That token can be used in creating a Jenkins credential. Paste the token from k8s into the "secret text" token box.
+# The API url for the K8S cluster is https://control.lab.sanderson.com:6443  
+# I didn't use a CA-approved K8S API CA cert so we'll need to tell Jenkins to trust unverified SSL connections.
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jenkins-svc-account
+  namespace: jenkins-builders
+  labels:
+    app: jenkins
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jenkins-builders
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: my-app-cluster-role-binding
+subjects:
+- kind: ServiceAccount
+  name: jenkins-svc-account
+  namespace: jenkins-builders  # Must match the namespace of your ServiceAccount
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin         # Replace with the name of the ClusterRole you want to bind
+  apiGroup: rbac.authorization.k8s.io
