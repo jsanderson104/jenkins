@@ -1,3 +1,4 @@
+```
 ==== building centos 9 vm for jenkins agent to run podman builds with =====
 
 *use nmtui to set a static ip on the interface
@@ -5,6 +6,7 @@
 # Essential Security crap to turn off for now
 
 echo "automation  ALL=(ALL)   NOPASSWD:ALL" > /etc/sudoers.d/automation
+echo "podman-builder  ALL=(ALL)   NOPASSWD:ALL" > /etc/sudoers.d/automation
 
 hostnamectl set-hostname ocibuilder.lab.sanderson.com
 export IP=$(ip -br a |grep -vE '^lo.*' |awk -F' ' '{print $3}' | sed 's/\/24//' | tr -d '\n')
@@ -86,3 +88,6 @@ wget http://jenkins.lab.sanderson.com:8080/jnlpJars/agent.jar
 
 # Run the Jenkins Agent so that it doesn't exit but runs in the background until i kill it. This command has to be retrieved from the JenkinsUI NODE settings/creation page so it'll have an updated secret
 nohup java -jar agent.jar -url http://jenkins.lab.sanderson.com:8080/ -secret [put secret from jenkins node in the UI here] -name "ocibuilder.lab.sanderson.com" -webSocket -workDir "/home/podman-builder" 2>&1 > ./agent.log &
+
+```
+
