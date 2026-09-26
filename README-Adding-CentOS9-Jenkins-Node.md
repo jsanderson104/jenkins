@@ -52,7 +52,7 @@ EOF
 echo "$IP       $(hostname -f)                  $(hostname -s)" >> /etc/hosts
 
 # Join IPA domain for podman-builder account ability.
-yum install -y ipa-client
+yum install -y ipa-client git
 
 # Only necessary if your IDM server isn't in FIPS mode... -or- your vm here is in FIPS mode and the server isn't. vica-versa.
 update-crypto-policies --set FIPS:AD-SUPPORT:SHA1
