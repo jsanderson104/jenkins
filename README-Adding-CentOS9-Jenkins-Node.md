@@ -1,12 +1,8 @@
 ```
 ==== building centos 9 vm for jenkins agent to run podman builds with =====
-
-*use nmtui to set a static ip on the interface
-
 # Essential Security crap to turn off for now
 
 echo "automation  ALL=(ALL)   NOPASSWD:ALL" > /etc/sudoers.d/automation
-echo "podman-builder  ALL=(ALL)   NOPASSWD:ALL" > /etc/sudoers.d/automation
 
 hostnamectl set-hostname ocibuilder.lab.sanderson.com
 export IP=$(ip -br a |grep -vE '^lo.*' |awk -F' ' '{print $3}' | sed 's/\/24//' | tr -d '\n')
@@ -48,7 +44,6 @@ cat << EOF >> /etc/hosts
 EOF
 
 # Set MY hostname in hosts file for posterity, but when we join IPA it should register in that DNS as well since our search domain in resolv matches the domain we're joining.
-# IMPORTANT THAT YOU DOUBLE-CHECK YOUR HOSTS FILE ENTRY FOR THIS NODE 
 echo "$IP       $(hostname -f)                  $(hostname -s)" >> /etc/hosts
 
 # Join IPA domain for podman-builder account ability.
@@ -88,6 +83,8 @@ wget http://jenkins.lab.sanderson.com:8080/jnlpJars/agent.jar
 # Save and Apply the new node settings. Now in the jenkins nodes list you will see your newly created node. Click on it to go to its settings page to retrieve the "secret" need for the command below
 
 # Run the Jenkins Agent so that it doesn't exit but runs in the background until i kill it. This command has to be retrieved from the JenkinsUI NODE settings/creation page so it'll have an updated secret
+# Note: whatever user runs the java process greatly affects where the git repo is downloaded and the expected "location" of job... can cause lots of problems if not run by "podman-builder" user.
+# Don't run this command with sudo!
 nohup java -jar agent.jar -url http://jenkins.lab.sanderson.com:8080/ -secret [put secret from jenkins node in the UI here] -name "ocibuilder.lab.sanderson.com" -webSocket -workDir "/home/podman-builder" 2>&1 > ./agent.log &
 
 ```
