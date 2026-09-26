@@ -27,7 +27,7 @@ firewall-cmd --add-port={9090/tcp,9443/tcp} && firewall-cmd --runtime-to-permane
 ```
 
 Open a browser and navigate to the Jenkins non-ssl port that we provided above (9090-->8080) and use the token provided from step 3 to login as admin for setup.
-In my home lab, i use my ansible vm to run this container so http://ansi.lab.sanderson.com:9090/
+In my home lab, i use my ansible vm to run this container so http://ansi.lab.sanderson.com:9090/ will be the default "base url" for jenkins when it starts. I cahnged it to reflect the jenkins.lab.sanderson.com name since i have it in DNS.
 
 6. After password entry, select "Install suggested plugins"
 
