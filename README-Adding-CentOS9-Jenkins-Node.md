@@ -48,6 +48,7 @@ cat << EOF >> /etc/hosts
 EOF
 
 # Set MY hostname in hosts file for posterity, but when we join IPA it should register in that DNS as well since our search domain in resolv matches the domain we're joining.
+# IMPORTANT THAT YOU DOUBLE-CHECK YOUR HOSTS FILE ENTRY FOR THIS NODE 
 echo "$IP       $(hostname -f)                  $(hostname -s)" >> /etc/hosts
 
 # Join IPA domain for podman-builder account ability.
