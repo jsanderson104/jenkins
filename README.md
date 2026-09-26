@@ -67,6 +67,14 @@ Kubernetes Namespace = jenkins-builders
 - Enable garbage collection
 
 
+<b> To set the Jenkins container to start on reboot as a systemd service </b>
+```
+podman generate systemd jenkins
+```
+Copy the file to /etc/systemd/system/jenkins.service and reload systemd
+```
+systemctl daemon-reload
+```
 
 
 
